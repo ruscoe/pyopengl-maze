@@ -61,24 +61,26 @@ def drawScene():
         glTranslatef(camerapos[0], camerapos[1], camerapos[2])
 
         # Build the maze like a printer; back to front, left to right.
-        direction = 1
+        columncount = 0
 
         for i in map:
 
-            glTranslatef(0.0, 0.0, cubesize)
-
             for j in i:
 
+                # 1 = cube, 0 = empty space.
                 if (j == 1):
                     cube.drawcube(imageID)
 
-                glTranslatef((direction * cubesize), 0.0, 0.0)
+                # Move from left to right one cube size.
+                glTranslatef(cubesize, 0.0, 0.0)
 
-            # Reverse the direction of cube drawing before starting next row.
-            direction = (direction * -1)
-            # Move one space in new direction to fix overshoot in
-            # the drawing loop.
-            glTranslatef((direction * cubesize), 0.0, 0.0)
+                columncount += 1
+
+            # Reset position before starting next row, while moving
+            # one cube size towards the camera.
+            glTranslatef(((cubesize * columncount) * -1), 0.0, cubesize)
+            # Reset the column count; this is a new row.
+            columncount = 0
 
         glutSwapBuffers()
 
