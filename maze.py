@@ -2,6 +2,7 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from src.cube import Cube
+from src.texture import Texture
 
 # Keyboard commands.
 KEY_ESCAPE = b'\x1b'
@@ -15,6 +16,9 @@ cubesize = 2
 camerapos = [-6.0, 0.0, -34.0]
 # Initial camera rotation.
 camerarot = 0.0
+
+# Loaded texture.
+imageID = None
 
 def initGL(Width, Height):
 
@@ -66,7 +70,7 @@ def drawScene():
             for j in i:
 
                 if (j == 1):
-                    cube.drawcube()
+                    cube.drawcube(imageID)
 
                 glTranslatef((direction * cubesize), 0.0, 0.0)
 
@@ -115,7 +119,7 @@ def handleKeypress(*args):
 
 def main():
 
-        global window
+        global window, imageID
 
         glutInit(sys.argv)
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
@@ -123,6 +127,10 @@ def main():
         glutInitWindowPosition(200, 200)
 
         window = glutCreateWindow('Experimental Maze')
+
+        # Load texture.
+        texture = Texture()
+        imageID = texture.loadImage()
 
         glutKeyboardFunc(handleKeypress)
 
