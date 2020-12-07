@@ -2,6 +2,7 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from src.cube import Cube
+from src.plane import Plane
 from src.texture import Texture
 
 # Keyboard commands.
@@ -17,8 +18,9 @@ camerapos = [-8.0, 0.0, -38.0]
 # Initial camera rotation.
 camerarot = 0.0
 
-# Loaded texture.
-imageID = None
+# Loaded textures.
+floortexture = None
+walltexture = None
 
 def initGL(Width, Height):
 
@@ -36,7 +38,7 @@ def drawScene():
 
         # Represents a top-down view of the maze.
         # 1 = wall
-        # 2 = path
+        # 0 = path
         # This could be built procedurally; hard-coded for now.
         map = [
             [1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
@@ -62,12 +64,20 @@ def drawScene():
         glLoadIdentity()
 
         cube = Cube()
+        plane = Plane()
 
         # Set up the current maze view.
         # Reset position to zero, rotate around y-axis, restore position.
         glTranslatef(0.0, 0.0, 0.0)
         glRotatef(camerarot, 0.0, 1.0, 0.0)
         glTranslatef(camerapos[0], camerapos[1], camerapos[2])
+
+        # Draw floor.
+        glPushMatrix()
+        glTranslatef(0.0, -2.0, 0.0)
+        glScalef(30.0, 1.0, 30.0)
+        plane.drawplane(floortexture, 50.0)
+        glPopMatrix()
 
         # Build the maze like a printer; back to front, left to right.
         columncount = 0
@@ -78,7 +88,7 @@ def drawScene():
 
                 # 1 = cube, 0 = empty space.
                 if (j == 1):
-                    cube.drawcube(imageID)
+                    cube.drawcube(walltexture)
 
                 # Move from left to right one cube size.
                 glTranslatef(cubesize, 0.0, 0.0)
@@ -130,7 +140,7 @@ def handleKeypress(*args):
 
 def main():
 
-        global window, imageID
+        global window, floortexture, walltexture
 
         glutInit(sys.argv)
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
@@ -141,7 +151,8 @@ def main():
 
         # Load texture.
         texture = Texture()
-        imageID = texture.loadImage()
+        floortexture = texture.loadImage('tex/floor.bmp')
+        walltexture = texture.loadImage('tex/wall.bmp')
 
         glutKeyboardFunc(handleKeypress)
 

@@ -6,7 +6,7 @@ import numpy
 
 class Texture:
 
-    def loadImage( self, filename = "tex/wall.bmp" ):
+    def loadImage(self, filename):
         try:
             image = open(filename)
         except IOError as ex:

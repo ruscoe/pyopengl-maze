@@ -5,15 +5,15 @@ from PIL.Image import open
 
 class Cube:
 
-    def drawcube(self, imageID = None):
+    def drawcube(self, texture_id = None):
 
-        if imageID is not None:
+        if texture_id is not None:
             glEnable(GL_TEXTURE_2D)
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
             glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
 
-            glBindTexture(GL_TEXTURE_2D, imageID)
+            glBindTexture(GL_TEXTURE_2D, texture_id)
 
         glBegin(GL_QUADS)
 
