@@ -1,6 +1,6 @@
 # Experimental Maze with Python and PyOpenGL
 
-Simple 3D maze I built to learn OpenGL. Textured ripped from [Doom II](https://en.wikipedia.org/wiki/Doom_II).
+Simple 3D maze I built to learn OpenGL. Textures ripped from [Doom II](https://en.wikipedia.org/wiki/Doom_II).
 
 ![Maze screenshot 1](http://ruscoe.org/assets/images/misc/github/pyopengl-maze-01.png)
 
