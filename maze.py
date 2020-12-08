@@ -19,6 +19,7 @@ camerapos = [-8.0, 0.0, -38.0]
 camerarot = 0.0
 
 # Loaded textures.
+ceilingtexture = None
 floortexture = None
 walltexture = None
 
@@ -76,7 +77,15 @@ def drawScene():
         glPushMatrix()
         glTranslatef(0.0, -2.0, 0.0)
         glScalef(30.0, 1.0, 30.0)
-        plane.drawplane(floortexture, 50.0)
+        plane.drawplane(floortexture, 40.0)
+        glPopMatrix()
+
+        # Draw ceiling.
+        glPushMatrix()
+        glTranslatef(0.0, 2.0, 0.0)
+        glRotatef(180.0, 0.0, 0.0, 1.0)
+        glScalef(30.0, 1.0, 30.0)
+        plane.drawplane(ceilingtexture, 50.0)
         glPopMatrix()
 
         # Build the maze like a printer; back to front, left to right.
@@ -88,7 +97,7 @@ def drawScene():
 
                 # 1 = cube, 0 = empty space.
                 if (j == 1):
-                    cube.drawcube(walltexture)
+                    cube.drawcube(walltexture, 1.0)
 
                 # Move from left to right one cube size.
                 glTranslatef(cubesize, 0.0, 0.0)
@@ -140,7 +149,7 @@ def handleKeypress(*args):
 
 def main():
 
-        global window, floortexture, walltexture
+        global window, ceilingtexture, floortexture, walltexture
 
         glutInit(sys.argv)
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
@@ -151,6 +160,7 @@ def main():
 
         # Load texture.
         texture = Texture()
+        ceilingtexture = texture.loadImage('tex/ceiling.bmp')
         floortexture = texture.loadImage('tex/floor.bmp')
         walltexture = texture.loadImage('tex/wall.bmp')
 
