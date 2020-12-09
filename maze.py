@@ -12,6 +12,10 @@ KEY_LEFT = b'a'
 KEY_RIGHT = b'd'
 
 window = 0
+
+# Distance the camera moves during each step.
+stepdistance = 0.25
+# Size of cubes used to create wall segments.
 cubesize = 2
 # Initial camera position after map is drawn.
 camerapos = [-8.0, 0.0, -38.0]
@@ -123,16 +127,16 @@ def handleKeypress(*args):
     if args[0] == KEY_FORWARD:
 
         if (camerarot == 90):
-            camerapos[0] -= cubesize
+            camerapos[0] -= stepdistance
 
         elif (camerarot == 180):
-            camerapos[2] -= cubesize
+            camerapos[2] -= stepdistance
 
         elif (camerarot == 270):
-            camerapos[0] += cubesize
+            camerapos[0] += stepdistance
 
         else:
-            camerapos[2] += cubesize
+            camerapos[2] += stepdistance
 
     if args[0] == KEY_LEFT:
         camerarot -= 90.0
