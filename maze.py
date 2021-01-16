@@ -2,6 +2,7 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from src.cube import Cube
+from src.generator import Generator
 from src.plane import Plane
 from src.texture import Texture
 
@@ -22,6 +23,8 @@ camerapos = [-8.0, 0.0, -38.0]
 # Initial camera rotation.
 camerarot = 0.0
 
+map = []
+
 # Loaded textures.
 ceilingtexture = None
 floortexture = None
@@ -40,29 +43,6 @@ def initGL(Width, Height):
         glMatrixMode(GL_MODELVIEW)
 
 def drawScene():
-
-        # Represents a top-down view of the maze.
-        # 1 = wall
-        # 0 = path
-        # This could be built procedurally; hard-coded for now.
-        map = [
-            [1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
-            [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
-            [1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1],
-            [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
-            [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
-            [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
-            [1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-            [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1]
-        ]
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
@@ -153,7 +133,7 @@ def handleKeypress(*args):
 
 def main():
 
-        global window, ceilingtexture, floortexture, walltexture
+        global window, ceilingtexture, floortexture, walltexture, map
 
         glutInit(sys.argv)
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
@@ -161,6 +141,30 @@ def main():
         glutInitWindowPosition(200, 200)
 
         window = glutCreateWindow('Experimental Maze')
+
+        # Generate map.
+        generator = Generator()
+        map = generator.generateMap(16)
+
+        # Represents a top-down view of the maze.
+        # map = [
+        #     [1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+        #     [1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
+        #     [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+        #     [1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1],
+        #     [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+        #     [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
+        #     [1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1],
+        #     [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+        #     [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+        #     [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+        #     [1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+        #     [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #     [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        #     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
+        #     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
+        #     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1]
+        # ]
 
         # Load texture.
         texture = Texture()
