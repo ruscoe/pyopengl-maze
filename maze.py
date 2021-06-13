@@ -16,6 +16,8 @@ window = 0
 
 # Distance the camera moves during each step.
 stepdistance = 0.25
+#
+rotateangle = 5;
 # Size of cubes used to create wall segments.
 cubesize = 2
 # Initial camera position after map is drawn.
@@ -119,17 +121,19 @@ def handleKeypress(*args):
             camerapos[2] += stepdistance
 
     if args[0] == KEY_LEFT:
-        camerarot -= 90.0
+        camerarot -= rotateangle
+        #camerarot -= 90.0
 
     if args[0] == KEY_RIGHT:
-        camerarot += 90.0
+        camerarot += rotateangle
+        #camerarot += 90.0
 
     # Enforce minimum and maximum rotation.
-    if (camerarot < 0):
-        camerarot = 270
+    #if (camerarot < 0):
+        #camerarot = 270
 
-    if (camerarot > 270):
-        camerarot = 0
+    #if (camerarot > 270):
+        #camerarot = 0
 
 def main():
 
