@@ -1,6 +1,7 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
+from src.collision import Collision
 from src.cube import Cube
 from src.generator import Generator
 from src.plane import Plane
@@ -22,6 +23,8 @@ cubesize = 2
 camerapos = [-8.0, 0.0, -38.0]
 # Initial camera rotation.
 camerarot = 0.0
+
+collision = Collision();
 
 map = []
 
@@ -105,6 +108,12 @@ def handleKeypress(*args):
 
     # Move forward relative to camera rotation.
     if args[0] == KEY_FORWARD:
+
+        print('Camera X:', camerapos[0], 'Z:', camerapos[2])
+
+        # TODO: Is this space occupied by a wall?
+        if (collision.testCollision(cubesize, map, camerapos[0], camerapos[2])):
+            print('Collision!')
 
         if (camerarot == 90):
             camerapos[0] -= stepdistance
