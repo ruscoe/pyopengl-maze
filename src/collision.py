@@ -11,6 +11,8 @@ class Collision:
         row_count = 0
         column_count = 0
 
+        half_cube_size = (cube_size / 2)
+
         for i in map:
 
             wall_z = (row_count * (cube_size * -1))
@@ -20,11 +22,13 @@ class Collision:
                 if (j == 0):
                     continue
 
-                wall_x = (column_count * cube_size)
+                wall_x = (column_count * (cube_size * -1))
 
-                if (z >= wall_z):
-                    print('Wall X:', wall_x, 'Z:', wall_z)
-                    return True
+                # Check for collision on the z axis.
+                if (z >= (wall_z - half_cube_size)) and (z <= (wall_z + half_cube_size)):
+                    if (x >= (wall_x - half_cube_size)) and (x <= (wall_x + half_cube_size)):
+                        print('Wall X:', wall_x, 'Z:', wall_z)
+                        return True
 
                 column_count += 1
 
