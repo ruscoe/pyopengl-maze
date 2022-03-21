@@ -19,6 +19,8 @@ window = 0
 stepdistance = 0.25
 # Size of cubes used to create wall segments.
 cubesize = 2
+# Space around cubes to extend hitbox (prevents peeking through walls).
+collision_padding = 0.5
 # Initial camera position after map is drawn.
 camerapos = [-8.0, 0.0, -38.0]
 # Initial camera rotation.
@@ -147,7 +149,7 @@ def handleKeypress(*args):
             intended_z += stepdistance
 
         # Move camera if there are no walls in the way.
-        if (collision.testCollision(cubesize, map, intended_x, intended_z)):
+        if (collision.testCollision(cubesize, map, intended_x, intended_z, collision_padding)):
             print('Collision at X:', intended_x, 'Z:', intended_z)
         else:
             camerapos[0] = intended_x
