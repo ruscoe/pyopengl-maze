@@ -129,23 +129,29 @@ def handleKeypress(*args):
     # Move forward relative to camera rotation.
     if args[0] == KEY_FORWARD:
 
-        print('Camera X:', camerapos[0], 'Z:', camerapos[2])
+        intended_x = camerapos[0]
+        intended_z = camerapos[2]
 
-        # TODO: Is this space occupied by a wall?
-        if (collision.testCollision(cubesize, map, camerapos[0], camerapos[2])):
-            print('Collision!')
+        # print('Camera X:', camerapos[0], 'Z:', camerapos[2])
 
         if (camerarot == 90):
-            camerapos[0] -= stepdistance
+            intended_x -= stepdistance
 
         elif (camerarot == 180):
-            camerapos[2] -= stepdistance
+            intended_z -= stepdistance
 
         elif (camerarot == 270):
-            camerapos[0] += stepdistance
+            intended_x += stepdistance
 
         else:
-            camerapos[2] += stepdistance
+            intended_z += stepdistance
+
+        # Move camera if there are no walls in the way.
+        if (collision.testCollision(cubesize, map, intended_x, intended_z)):
+            print('Collision at X:', intended_x, 'Z:', intended_z)
+        else:
+            camerapos[0] = intended_x
+            camerapos[2] = intended_z
 
     if args[0] == KEY_LEFT:
         camerarot -= 90.0
