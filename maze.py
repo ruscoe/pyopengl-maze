@@ -24,7 +24,9 @@ camerapos = [-8.0, 0.0, -38.0]
 # Initial camera rotation.
 camerarot = 0.0
 
-collision = Collision();
+first_run = False
+
+collision = Collision()
 
 map = []
 
@@ -46,6 +48,8 @@ def initGL(Width, Height):
         glMatrixMode(GL_MODELVIEW)
 
 def drawScene():
+
+        global camerapos, first_run
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
@@ -76,9 +80,15 @@ def drawScene():
         glPopMatrix()
 
         # Build the maze like a printer; back to front, left to right.
-        columncount = 0
+        row_count = 0
+        column_count = 0
+
+        wall_x = 0.0
+        wall_z = 0.0
 
         for i in map:
+
+            wall_z = (row_count * (cubesize * -1))
 
             for j in i:
 
@@ -86,18 +96,28 @@ def drawScene():
                 if (j == 1):
                     cube.drawcube(walltexture, 1.0)
 
+                    wall_x = (column_count * (cubesize * -1))
+
+                    if (first_run != True):
+                        print('Drawing cube at X:', wall_x, 'Z:', wall_z)
+
                 # Move from left to right one cube size.
                 glTranslatef(cubesize, 0.0, 0.0)
 
-                columncount += 1
+                column_count += 1
 
             # Reset position before starting next row, while moving
             # one cube size towards the camera.
-            glTranslatef(((cubesize * columncount) * -1), 0.0, cubesize)
+            glTranslatef(((cubesize * column_count) * -1), 0.0, cubesize)
+
+            row_count += 1
             # Reset the column count; this is a new row.
-            columncount = 0
+            column_count = 0
 
         glutSwapBuffers()
+
+        if (first_run != True):
+            first_run = True
 
 def handleKeypress(*args):
 
@@ -174,6 +194,25 @@ def main():
         #     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1],
         #     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1]
         # ]
+
+        map = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]
 
         # Load texture.
         texture = Texture()
