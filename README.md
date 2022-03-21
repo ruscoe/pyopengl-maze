@@ -26,3 +26,12 @@ In the root path, enter: `python3 maze.py`
 `S` = Turn left
 
 `D` = Turn right
+
+## TODO
+
+* ~~Collision detection~~
+* Free movement
+* Sprites
+* Decals
+* Doors
+* Animated textures
