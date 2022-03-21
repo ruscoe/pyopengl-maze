@@ -19,9 +19,6 @@ In the root path, enter: `python3 maze.py`
 
 ## Controls
 
-You can move around the maze. There is no collision detection,
-so you can move through walls if you want to.
-
 `Esc` = Exit
 
 `W` = Move forward
