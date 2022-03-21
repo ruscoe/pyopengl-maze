@@ -4,21 +4,13 @@ from OpenGL.GLU import *
 from src.collision import Collision
 from src.cube import Cube
 from src.generator import Generator
+from src.input import Input
+from src.movement import Movement
 from src.plane import Plane
 from src.texture import Texture
 
-# Keyboard commands.
-KEY_ESCAPE = b'\x1b'
-KEY_FORWARD = b'w'
-KEY_LEFT = b'a'
-KEY_RIGHT = b'd'
-
 window = 0
 
-# Distance the camera moves during each step.
-stepdistance = 0.25
-#
-rotateangle = 5;
 # Size of cubes used to create wall segments.
 cubesize = 2
 # Space around cubes to extend hitbox (prevents peeking through walls).
@@ -27,10 +19,13 @@ collision_padding = 0.5
 camerapos = [-8.0, 0.0, -38.0]
 # Initial camera rotation.
 camerarot = 0.0
+# The angle in degrees the camera rotates each turn.
+rotate_angle = 5;
 
 first_run = False
 
 collision = Collision()
+movement = Movement();
 
 map = []
 
@@ -127,28 +122,18 @@ def handleKeypress(*args):
 
     global camerapos, camerarot
 
-    if args[0] == KEY_ESCAPE:
+    if args[0] == Input.KEY_ESCAPE:
         sys.exit()
 
     # Move forward relative to camera rotation.
-    if args[0] == KEY_FORWARD:
-
-        intended_x = camerapos[0]
-        intended_z = camerapos[2]
+    if args[0] == Input.KEY_FORWARD:
 
         # print('Camera X:', camerapos[0], 'Z:', camerapos[2])
 
-        if (camerarot == 90):
-            intended_x -= stepdistance
+        intended_pos = movement.getIntendedPosition(camerarot, camerapos[0], camerapos[2])
 
-        elif (camerarot == 180):
-            intended_z -= stepdistance
-
-        elif (camerarot == 270):
-            intended_x += stepdistance
-
-        else:
-            intended_z += stepdistance
+        intended_x = intended_pos[0]
+        intended_z = intended_pos[2]
 
         # Move camera if there are no walls in the way.
         if (collision.testCollision(cubesize, map, intended_x, intended_z, collision_padding)):
@@ -157,20 +142,20 @@ def handleKeypress(*args):
             camerapos[0] = intended_x
             camerapos[2] = intended_z
 
-    if args[0] == KEY_LEFT:
-        camerarot -= rotateangle
-        #camerarot -= 90.0
+    if args[0] == Input.KEY_LEFT:
+        #camerarot -= rotate_angle
+        camerarot -= 90.0
 
-    if args[0] == KEY_RIGHT:
-        camerarot += rotateangle
-        #camerarot += 90.0
+    if args[0] == Input.KEY_RIGHT:
+        #camerarot += rotate_angle
+        camerarot += 90.0
 
     # Enforce minimum and maximum rotation.
-    #if (camerarot < 0):
-        #camerarot = 270
+    if (camerarot < 0):
+        camerarot = 270
 
-    #if (camerarot > 270):
-        #camerarot = 0
+    if (camerarot > 270):
+        camerarot = 0
 
 def main():
 
