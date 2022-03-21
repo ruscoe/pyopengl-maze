@@ -1,3 +1,4 @@
+import math
 
 class Movement:
 
@@ -10,20 +11,7 @@ class Movement:
 
         position = [camera_x, 0, camera_z];
 
-        if (camera_rot == 90):
-            #intended_x -= stepdistance
-            position[0] -= self.step_distance
-
-        elif (camera_rot == 180):
-            #intended_z -= stepdistance
-            position[2] -= self.step_distance
-
-        elif (camera_rot == 270):
-            #intended_x += stepdistance
-            position[0] += self.step_distance
-
-        else:
-            #intended_z += stepdistance
-            position[2] += self.step_distance
+        position[0] += self.step_distance * math.cos(math.radians(camera_rot + 90))
+        position[2] += self.step_distance * math.sin(math.radians(camera_rot + 90))
 
         return position

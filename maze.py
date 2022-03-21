@@ -143,19 +143,10 @@ def handleKeypress(*args):
             camerapos[2] = intended_z
 
     if args[0] == Input.KEY_LEFT:
-        #camerarot -= rotate_angle
-        camerarot -= 90.0
+        camerarot -= rotate_angle
 
     if args[0] == Input.KEY_RIGHT:
-        #camerarot += rotate_angle
-        camerarot += 90.0
-
-    # Enforce minimum and maximum rotation.
-    if (camerarot < 0):
-        camerarot = 270
-
-    if (camerarot > 270):
-        camerarot = 0
+        camerarot += rotate_angle
 
 def main():
 
