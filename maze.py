@@ -20,7 +20,7 @@ camerapos = [-8.0, 0.0, -38.0]
 # Initial camera rotation.
 camerarot = 0.0
 # The angle in degrees the camera rotates each turn.
-rotate_angle = 5;
+rotate_angle = 1;
 
 first_run = False
 
