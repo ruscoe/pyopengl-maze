@@ -35,6 +35,7 @@ In the root path, enter: `python3 maze.py`
 * Decals
 * Doors
 * Animated textures
+* Loadable maps
 
 ## Things to fix
 
