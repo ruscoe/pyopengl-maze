@@ -25,6 +25,7 @@ rotate_angle = 5;
 first_run = False
 
 collision = Collision()
+input = Input();
 movement = Movement();
 
 map = []
@@ -115,18 +116,20 @@ def drawScene():
 
     glutSwapBuffers()
 
+    handleInput()
+
     if (first_run != True):
         first_run = True
 
-def handleKeypress(*args):
+def handleInput():
 
-    global camerapos, camerarot
+    global input, camerapos, camerarot
 
-    if args[0] == Input.KEY_ESCAPE:
+    if input.isKeyDown(Input.KEY_STATE_ESCAPE):
         sys.exit()
 
     # Move forward relative to camera rotation.
-    if args[0] == Input.KEY_FORWARD:
+    if input.isKeyDown(Input.KEY_STATE_FORWARD):
 
         # print('Camera X:', camerapos[0], 'Z:', camerapos[2])
 
@@ -142,10 +145,10 @@ def handleKeypress(*args):
             camerapos[0] = intended_x
             camerapos[2] = intended_z
 
-    if args[0] == Input.KEY_LEFT:
+    if input.isKeyDown(Input.KEY_STATE_LEFT):
         camerarot -= rotate_angle
 
-    if args[0] == Input.KEY_RIGHT:
+    if input.isKeyDown(Input.KEY_STATE_RIGHT):
         camerarot += rotate_angle
 
 def main():
@@ -189,7 +192,9 @@ def main():
     floortexture = texture.loadImage('tex/floor.bmp')
     walltexture = texture.loadImage('tex/wall.bmp')
 
-    glutKeyboardFunc(handleKeypress)
+    glutIgnoreKeyRepeat(1)
+    glutKeyboardFunc(input.registerKeyDown)
+    glutKeyboardUpFunc(input.registerKeyUp)
 
     glutDisplayFunc(drawScene)
     glutIdleFunc(drawScene)
