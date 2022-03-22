@@ -18,11 +18,9 @@ class Input:
         return (self.key_states[key_state] == 1)
 
     def registerKeyDown(self, key, x, y):
-        print(key)
         self.setKeyState(key, 1)
 
     def registerKeyUp(self, key, x, y):
-        print(key)
         self.setKeyState(key, 0)
 
     def setKeyState(self, key, state):
