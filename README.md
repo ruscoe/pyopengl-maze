@@ -27,11 +27,16 @@ In the root path, enter: `python3 maze.py`
 
 `D` = Turn right
 
-## TODO
+## Things to do
 
 * ~~Collision detection~~
-* Free movement
+* ~~Free movement~~
 * Sprites
 * Decals
 * Doors
 * Animated textures
+
+## Things to fix
+
+* Collision detection makes walls sticky
+* Cannot move and turn at the same time
