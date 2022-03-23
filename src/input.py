@@ -24,18 +24,14 @@ class Input:
         self.setKeyState(key, 0)
 
     def setKeyState(self, key, state):
-        key_state = 0
-
         if key == self.KEY_ESCAPE:
-            key_state = self.KEY_STATE_ESCAPE
+            self.key_states[self.KEY_STATE_ESCAPE] = state
 
         if key == self.KEY_FORWARD:
-            key_state = self.KEY_STATE_FORWARD
+            self.key_states[self.KEY_STATE_FORWARD] = state
 
         if key == self.KEY_LEFT:
-            key_state = self.KEY_STATE_LEFT
+            self.key_states[self.KEY_STATE_LEFT] = state
 
         if key == self.KEY_RIGHT:
-            key_state = self.KEY_STATE_RIGHT
-
-        self.key_states[key_state] = state
+            self.key_states[self.KEY_STATE_RIGHT] = state
