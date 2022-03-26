@@ -128,30 +128,31 @@ def handleInput():
     if input.isKeyDown(Input.KEY_STATE_ESCAPE):
         sys.exit()
 
-    # Move forward relative to camera rotation.
-    if input.isKeyDown(Input.KEY_STATE_FORWARD) or input.isKeyDown(Input.KEY_STATE_BACK):
-
-        # print('Camera X:', camerapos[0], 'Z:', camerapos[2])
-
-        modifier = 1 if input.isKeyDown(Input.KEY_STATE_FORWARD) else -1
-
-        intended_pos = movement.getIntendedPosition(camerarot, camerapos[0], camerapos[2], modifier)
-
-        intended_x = intended_pos[0]
-        intended_z = intended_pos[2]
-
-        # Move camera if there are no walls in the way.
-        if (collision.testCollision(cubesize, map, intended_x, intended_z, collision_padding)):
-            print('Collision at X:', intended_x, 'Z:', intended_z)
-        else:
-            camerapos[0] = intended_x
-            camerapos[2] = intended_z
-
     if input.isKeyDown(Input.KEY_STATE_LEFT):
         camerarot -= rotate_angle
 
     if input.isKeyDown(Input.KEY_STATE_RIGHT):
         camerarot += rotate_angle
+
+    intended_pos = [camerapos[0], 0, camerapos[2]];
+
+    if input.isKeyDown(Input.KEY_STATE_FORWARD) or input.isKeyDown(Input.KEY_STATE_BACK):
+        modifier = 1 if input.isKeyDown(Input.KEY_STATE_FORWARD) else -1
+        intended_pos = movement.getIntendedPosition(camerarot, camerapos[0], camerapos[2], 90, modifier)
+
+    if input.isKeyDown(Input.KEY_STATE_LEFT_STRAFE) or input.isKeyDown(Input.KEY_STATE_RIGHT_STRAFE):
+        modifier = 1 if input.isKeyDown(Input.KEY_STATE_LEFT_STRAFE) else -1
+        intended_pos = movement.getIntendedPosition(camerarot, camerapos[0], camerapos[2], 0, modifier)
+
+    intended_x = intended_pos[0]
+    intended_z = intended_pos[2]
+
+    # Move camera if there are no walls in the way.
+    if (collision.testCollision(cubesize, map, intended_x, intended_z, collision_padding)):
+        print('Collision at X:', intended_x, 'Z:', intended_z)
+    else:
+        camerapos[0] = intended_x
+        camerapos[2] = intended_z
 
 def main():
 
