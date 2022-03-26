@@ -129,11 +129,13 @@ def handleInput():
         sys.exit()
 
     # Move forward relative to camera rotation.
-    if input.isKeyDown(Input.KEY_STATE_FORWARD):
+    if input.isKeyDown(Input.KEY_STATE_FORWARD) or input.isKeyDown(Input.KEY_STATE_BACK):
 
         # print('Camera X:', camerapos[0], 'Z:', camerapos[2])
 
-        intended_pos = movement.getIntendedPosition(camerarot, camerapos[0], camerapos[2])
+        modifier = 1 if input.isKeyDown(Input.KEY_STATE_FORWARD) else -1
+
+        intended_pos = movement.getIntendedPosition(camerarot, camerapos[0], camerapos[2], modifier)
 
         intended_x = intended_pos[0]
         intended_z = intended_pos[2]
