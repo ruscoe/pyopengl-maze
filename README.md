@@ -23,6 +23,8 @@ In the root path, enter: `python3 maze.py`
 
 `W` = Move forward
 
+`S` = Move back
+
 `A` = Turn left
 
 `D` = Turn right
