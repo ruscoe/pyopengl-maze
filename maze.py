@@ -84,8 +84,10 @@ def drawScene():
 
     # Draw test sprite.
     glPushMatrix()
-    glTranslatef(0.0, 0.5, 0.0)
-    glRotatef(90.0, 90.0, 0.0, 1.0)
+    glTranslatef(0.0, 0.5, -6.0)
+    glRotatef(90.0, 1.0, 0.0, 0.0)
+    glRotatef(camerarot, 0.0, 0.0, 1.0)
+    # glRotatef(45.0, 0.0, 0.0, 1.0)
     glScalef(1.0, 0.0, 1.0)
     sprite.drawSprite(walltexture)
     glPopMatrix()
