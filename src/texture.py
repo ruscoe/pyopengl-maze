@@ -11,12 +11,12 @@ class Texture:
             image = open(filename)
         except IOError as ex:
             print('IOError: failed to open texture file')
-            message = template.format(type(ex).__name__, ex.args)
-            print(message)
+            print(ex)
             return -1
 
         print('Opened image file: size =', image.size, 'format =', image.format)
         imageData = numpy.array(list(image.getdata()), numpy.uint8)
+        print(imageData)
 
         textureID = glGenTextures(1)
         glPixelStorei(GL_UNPACK_ALIGNMENT, 4)
