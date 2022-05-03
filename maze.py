@@ -17,8 +17,8 @@ cubesize = 2
 # Space around cubes to extend hitbox (prevents peeking through walls).
 collision_padding = 0.5
 # Initial camera position after map is drawn.
-# camerapos = [-8.0, 0.0, -38.0]
-camerapos = [0.0, 0.0, 0.0]
+camerapos = [-8.0, 0.0, -38.0]
+# camerapos = [0.0, 0.0, 0.0]
 # Initial camera rotation.
 camerarot = 0.0
 # The angle in degrees the camera rotates each turn.
@@ -75,22 +75,21 @@ def drawScene():
     glPopMatrix()
 
     # Draw ceiling.
-    # glPushMatrix()
-    # glTranslatef(0.0, 2.0, 0.0)
-    # glRotatef(180.0, 0.0, 0.0, 1.0)
-    # glScalef(30.0, 1.0, 30.0)
-    # plane.drawplane(ceilingtexture, 50.0)
-    # glPopMatrix()
+    glPushMatrix()
+    glTranslatef(0.0, 2.0, 0.0)
+    glRotatef(180.0, 0.0, 0.0, 1.0)
+    glScalef(30.0, 1.0, 30.0)
+    plane.drawplane(ceilingtexture, 50.0)
+    glPopMatrix()
 
     # Draw test sprite.
-    glPushMatrix()
-    glTranslatef(0.0, 0.5, -6.0)
-    glRotatef(90.0, 1.0, 0.0, 0.0)
-    glRotatef(camerarot, 0.0, 0.0, 1.0)
-    # glRotatef(45.0, 0.0, 0.0, 1.0)
-    glScalef(1.0, 0.0, 1.0)
-    sprite.drawSprite(walltexture)
-    glPopMatrix()
+    # glPushMatrix()
+    # glTranslatef(0.0, 0.5, -6.0)
+    # glRotatef(90.0, 1.0, 0.0, 0.0)
+    # glRotatef(camerarot, 0.0, 0.0, 1.0)
+    # glScalef(1.0, 0.0, 1.0)
+    # sprite.drawSprite(ceilingtexture)
+    # glPopMatrix()
 
     # Build the maze like a printer; back to front, left to right.
     row_count = 0
@@ -107,7 +106,7 @@ def drawScene():
 
             # 1 = cube, 0 = empty space.
             if (j == 1):
-                #cube.drawcube(walltexture, 1.0)
+                cube.drawcube(walltexture, 1.0)
 
                 wall_x = (column_count * (cubesize * -1))
 
@@ -161,14 +160,11 @@ def handleInput():
     intended_z = intended_pos[2]
 
     # Move camera if there are no walls in the way.
-    # if (collision.testCollision(cubesize, map, intended_x, intended_z, collision_padding)):
-    #     print('Collision at X:', intended_x, 'Z:', intended_z)
-    # else:
-    #     camerapos[0] = intended_x
-    #     camerapos[2] = intended_z
-
-    camerapos[0] = intended_x
-    camerapos[2] = intended_z
+    if (collision.testCollision(cubesize, map, intended_x, intended_z, collision_padding)):
+        print('Collision at X:', intended_x, 'Z:', intended_z)
+    else:
+        camerapos[0] = intended_x
+        camerapos[2] = intended_z
 
 def main():
 
