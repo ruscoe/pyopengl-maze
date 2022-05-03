@@ -17,6 +17,10 @@ Only tested with Python 3.7.2 on [Pop_OS 20.04](https://pop.system76.com/) (basi
 
 In the root path, enter: `python3 maze.py`
 
+## Adding textures
+
+Textures must be 8-bit BMP images (max 256 colors)
+
 ## Controls
 
 `Esc` = Exit
