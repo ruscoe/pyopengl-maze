@@ -35,6 +35,7 @@ map = []
 # Loaded textures.
 ceilingtexture = None
 floortexture = None
+orbtexture = None
 walltexture = None
 
 def initGL(Width, Height):
@@ -83,13 +84,13 @@ def drawScene():
     glPopMatrix()
 
     # Draw test sprite.
-    # glPushMatrix()
-    # glTranslatef(0.0, 0.5, -6.0)
-    # glRotatef(90.0, 1.0, 0.0, 0.0)
-    # glRotatef(camerarot, 0.0, 0.0, 1.0)
-    # glScalef(1.0, 0.0, 1.0)
-    # sprite.drawSprite(ceilingtexture)
-    # glPopMatrix()
+    glPushMatrix()
+    glTranslatef(0.0, 0.5, -6.0)
+    glRotatef(90.0, 1.0, 0.0, 0.0)
+    glRotatef(camerarot, 0.0, 0.0, 1.0)
+    glScalef(1.0, 0.0, 1.0)
+    sprite.drawSprite(orbtexture)
+    glPopMatrix()
 
     # Build the maze like a printer; back to front, left to right.
     row_count = 0
@@ -168,7 +169,7 @@ def handleInput():
 
 def main():
 
-    global window, ceilingtexture, floortexture, walltexture, map
+    global window, ceilingtexture, floortexture, orbtexture, walltexture, map
 
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
@@ -203,8 +204,10 @@ def main():
 
     # Load texture.
     texture = Texture()
+
     ceilingtexture = texture.loadImage('tex/ceiling.bmp')
     floortexture = texture.loadImage('tex/floor.bmp')
+    orbtexture = texture.loadImage('tex/orb.bmp')
     walltexture = texture.loadImage('tex/wall.bmp')
 
     glutIgnoreKeyRepeat(1)
