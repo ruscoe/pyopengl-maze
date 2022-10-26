@@ -2,9 +2,9 @@
 
 Simple 3D maze I built to learn OpenGL. Textures ripped from [Doom II](https://en.wikipedia.org/wiki/Doom_II).
 
-![Maze screenshot 1](http://ruscoe.org/assets/images/misc/github/pyopengl-maze-01.png)
+![pyopengl-maze-01](https://user-images.githubusercontent.com/87952/198073750-1d8ee9f1-6a70-48c9-a0e7-2d030c904f9e.png)
 
-![Maze screenshot 2](http://ruscoe.org/assets/images/misc/github/pyopengl-maze-02.png)
+![pyopengl-maze-02](https://user-images.githubusercontent.com/87952/198073809-8c461e0b-01a3-486e-8404-7a754af02735.png)
 
 ## Requirements
 
