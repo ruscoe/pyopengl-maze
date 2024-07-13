@@ -101,6 +101,7 @@ def drawScene():
                 # Wall textures are zero-indexed, so subtract 1 from wall ID.
                 cube.drawcube(wall_textures[int(j) - 1], 1.0)
 
+            # 10 - 19 = object.
             if ((j > 9) and (j < 20)):
                 objects.append([column_count, row_count, j])
 
