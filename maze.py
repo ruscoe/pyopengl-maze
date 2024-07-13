@@ -37,6 +37,7 @@ ceiling_texture = None
 floor_texture = None
 wall_textures = []
 object_textures = []
+door_textures = []
 objects = []
 
 def initGL(Width, Height):
@@ -215,6 +216,8 @@ def main():
     wall_textures.append(texture.loadImage('tex/wall/02.png'))
 
     object_textures.append(texture.loadImage('tex/object/orb.png'))
+
+    door_textures.append(texture.loadImage('tex/door/01.png'))
 
     glutIgnoreKeyRepeat(1)
     glutKeyboardFunc(input.registerKeyDown)
